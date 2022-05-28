@@ -3,6 +3,7 @@ package com.example.gsondb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -11,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users2")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,5 +27,8 @@ public class User {
 
     @Column(nullable = false, length = 15, name = "last_name")
     private String lastName;
+
+    @OneToMany(mappedBy = "uid",cascade = CascadeType.ALL)
+    private Set<Post> posts;
 
 }

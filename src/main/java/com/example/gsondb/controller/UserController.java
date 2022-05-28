@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/user")
 public class UserController {
 //Creating Spring Boot CRUD REST APIs
     @Autowired
@@ -31,7 +31,7 @@ public class UserController {
 
     // build get employee by id REST API
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserById(@PathVariable long id){
+    public ResponseEntity<User> getUserById(@PathVariable Long id){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
         return ResponseEntity.ok(user);
@@ -39,13 +39,13 @@ public class UserController {
 
     // build update employee REST API
     @PutMapping ("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable long id,@RequestBody User userDatails){
+    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User userDetails){
         User updateUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
-        updateUser.setFirstName(userDatails.getFirstName());
-        updateUser.setLastName(userDatails.getLastName());
-        updateUser.setEmail(userDatails.getEmail());
-        updateUser.setPassword(userDatails.getPassword());
+        updateUser.setFirstName(userDetails.getFirstName());
+        updateUser.setLastName(userDetails.getLastName());
+        updateUser.setEmail(userDetails.getEmail());
+        updateUser.setPassword(userDetails.getPassword());
 
         userRepository.save(updateUser);
 
@@ -54,7 +54,7 @@ public class UserController {
 
     // build delete employee REST API
     @DeleteMapping("{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable long id){
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
         userRepository.delete(user);
